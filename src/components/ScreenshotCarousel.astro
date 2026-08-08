@@ -29,11 +29,16 @@ const base = import.meta.env.BASE_URL;
   }
 
   @media (min-width: 1024px) {
+    /* The sticking and centering both happen one level up now, on
+       .stage__visual in index.astro (position: sticky; height: 100vh;
+       display: flex; align-items: center;) — that box's own layout is what
+       the sticky engine measures, so it releases exactly at the end of
+       Downloads instead of early. This element just fills it. */
     .carousel {
-      top: 50%;
-      transform: translateY(-50%);
+      position: static;
       max-width: none;
       margin: 0;
+      width: 100%;
     }
   }
 

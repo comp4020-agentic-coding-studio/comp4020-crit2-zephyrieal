@@ -35,6 +35,18 @@
     padding-inline: var(--gutter);
   }
 
+  /* At >=1024px the homepage's two-column stage (see index.astro) takes over
+     this box's centering and gutter itself, sized against the full page
+     width instead of the narrower content column — so this element's own
+     copy of that treatment is switched off there to avoid compounding it. */
+  @media (min-width: 1024px) {
+    .hero__content {
+      padding-inline: 0;
+      max-width: none;
+      margin: 0;
+    }
+  }
+
   h1 {
     font-size: clamp(2.4rem, 5vw, 3.75rem);
     letter-spacing: -0.01em;

@@ -50,16 +50,35 @@ import FaqTeaser from "../components/FaqTeaser.astro";
   }
 
   @media (min-width: 1024px) {
+    /* Matches the same content-max + gutter box every standalone page's
+       .section-inner uses (Screenshots, Downloads, FAQ, Blog, Community),
+       so splitting into two columns here doesn't leave the homepage's own
+       content starting at a different x than any other page's does. */
     .stage {
-      grid-template-columns: 1fr 32rem;
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding-inline: var(--gutter);
+      grid-template-columns: 1fr 20rem;
+      column-gap: 2rem;
     }
 
-    /* Stretched (not align-items: start) so this grid item's own box spans
-       the full row height — the sticky carousel inside needs a tall enough
-       containing block to travel within, or it runs out of room to stick
-       to after one screen's worth of scroll and scrolls away with it. */
+    /* The carousel sticks and self-centers inside THIS box: height:100vh
+       plus top:0 makes the sticky element's own layout box exactly what's
+       rendered (centering the carousel is a plain flex child, not a
+       transform on it), so the sticky engine's "has this run out of room"
+       math matches what's on screen. It only releases once this box's own
+       bottom edge — the true end of Downloads — scrolls into view, instead
+       of releasing early the way a top:50vh + translateY(-50%) transform
+       on the carousel itself did (the sticky release calc uses the
+       pre-transform box, which is taller than what's actually visible). */
     .stage__visual {
-      padding: 3rem var(--gutter) 3rem 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-block: 3rem;
+      z-index: 5;
     }
   }
 </style>
