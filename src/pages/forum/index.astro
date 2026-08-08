@@ -1,0 +1,276 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import HingeDivider from "../../components/HingeDivider.astro";
+
+// A static snapshot of melonds.kuribo64.net/board/'s board index, rebuilt in
+// this redesign's own markup and styling rather than copying the original
+// page's HTML. The category structure, descriptions, and thread/post counts
+// are real. Ordinary members' names and exact last-post timestamps aren't
+// reproduced here, only the two well-known project figures already named
+// elsewhere on this site (Arisotura, RSDuck) keep their real credit. This is
+// a frozen picture, not a live forum: no login, no posting, no thread pages.
+const boardUrl = "https://melonds.kuribo64.net/board/";
+const snapshotDate = "August 2026";
+
+const categories = [
+  {
+    group: "melonDS",
+    boards: [
+      {
+        name: "Releases",
+        desc: "Announcements for melonDS releases are posted here.",
+        threads: 11,
+        posts: 121,
+        lastBy: "a forum member",
+      },
+      {
+        name: "General",
+        desc: "Discussion about melonDS in general.",
+        threads: 1357,
+        posts: 5454,
+        lastBy: "RSDuck",
+      },
+      {
+        name: "Compatibility / Testing",
+        desc: "Basically how good melonDS is doing.",
+        threads: 318,
+        posts: 1276,
+        lastBy: "a forum member",
+      },
+      {
+        name: "Translations",
+        desc: "All discussion about translating melonDS to non-English languages.",
+        threads: 2,
+        posts: 51,
+        lastBy: "a forum member",
+      },
+      {
+        name: "Development",
+        desc: "Anything related to the development of melonDS goes here.",
+        threads: 175,
+        posts: 719,
+        lastBy: "a forum member",
+      },
+    ],
+  },
+  {
+    group: "Other",
+    boards: [
+      {
+        name: "Announcements",
+        desc: "News about the site.",
+        threads: 13,
+        posts: 36,
+        lastBy: "Arisotura",
+      },
+      {
+        name: "Off-topic",
+        desc: "All sorts of conversation not related to melonDS.",
+        threads: 133,
+        posts: 628,
+        lastBy: "a forum member",
+      },
+    ],
+  },
+  {
+    group: "The end",
+    boards: [
+      {
+        name: "Trash",
+        desc: "ew",
+        threads: 13,
+        posts: 36,
+        lastBy: "Arisotura",
+      },
+    ],
+  },
+];
+
+const stats = { threads: 2135, posts: 8581, users: 15951 };
+---
+
+<Layout title="Forum — melonDS" description="A static snapshot of the melonDS project's community forum.">
+  <SiteHeader />
+  <main>
+    <section class="intro">
+      <div class="section section-inner">
+        <span class="eyebrow">Forum</span>
+        <h1>A snapshot of the board, frozen in place.</h1>
+        <p class="intro__lede">
+          This is a still picture of the real forum's board index as of {snapshotDate}, rebuilt here rather than embedded. Nothing on this page is clickable into a thread. Head to the real forum to actually read or post.
+        </p>
+        <a class="button button-primary" href={boardUrl} target="_blank" rel="noopener noreferrer">
+          Open the live forum
+        </a>
+      </div>
+    </section>
+
+    <HingeDivider />
+
+    <section class="board">
+      <div class="section section-inner">
+        <ul class="board__stats">
+          <li><strong>{stats.threads.toLocaleString()}</strong> threads</li>
+          <li><strong>{stats.posts.toLocaleString()}</strong> posts</li>
+          <li><strong>{stats.users.toLocaleString()}</strong> registered members</li>
+        </ul>
+
+        {
+          categories.map((cat) => (
+            <div class="category">
+              <h2>{cat.group}</h2>
+              <table class="category__table">
+                <thead>
+                  <tr>
+                    <th scope="col">Board</th>
+                    <th scope="col">Threads</th>
+                    <th scope="col">Posts</th>
+                    <th scope="col">Last post by</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {cat.boards.map((b) => (
+                    <tr>
+                      <td>
+                        <span class="board__name">{b.name}</span>
+                        <span class="board__desc">{b.desc}</span>
+                      </td>
+                      <td>{b.threads}</td>
+                      <td>{b.posts}</td>
+                      <td>{b.lastBy}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</Layout>
+
+<style>
+  .intro {
+    background: var(--shell);
+  }
+
+  h1 {
+    font-size: clamp(1.9rem, 4vw, 2.75rem);
+    max-width: 36rem;
+    margin-top: 0.5rem;
+  }
+
+  .intro__lede {
+    margin-top: 1rem;
+    color: var(--text-muted);
+    max-width: 38rem;
+  }
+
+  .intro .button-primary {
+    display: inline-flex;
+    margin-top: 1.75rem;
+  }
+
+  .board {
+    background: var(--panel);
+  }
+
+  .board__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem 2.5rem;
+    margin: 0 0 2.5rem;
+    padding: 0;
+    list-style: none;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .board__stats strong {
+    color: var(--text);
+    font-family: var(--font-mono);
+  }
+
+  .category {
+    margin-top: 2.5rem;
+  }
+
+  .category:first-of-type {
+    margin-top: 0;
+  }
+
+  .category h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .category__table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--panel-raised);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .category__table th,
+  .category__table td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--hairline);
+    font-size: 0.88rem;
+  }
+
+  .category__table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .category__table th {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .board__name {
+    display: block;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .board__desc {
+    display: block;
+    margin-top: 0.2rem;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+  }
+
+  @media (max-width: 700px) {
+    .category__table thead {
+      display: none;
+    }
+
+    .category__table tr {
+      display: block;
+      padding: 0.85rem 1rem;
+    }
+
+    .category__table td {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.3rem 0;
+      border-bottom: none;
+    }
+
+    .category__table td:first-child {
+      display: block;
+    }
+  }
+</style>
