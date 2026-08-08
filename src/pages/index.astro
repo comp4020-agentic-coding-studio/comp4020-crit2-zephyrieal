@@ -7,7 +7,7 @@ import Hero from "../components/Hero.astro";
 import HingeDivider from "../components/HingeDivider.astro";
 import Features from "../components/Features.astro";
 import Downloads from "../components/Downloads.astro";
-import DSDevice from "../components/DSDevice.astro";
+import ScreenshotCarousel from "../components/ScreenshotCarousel.astro";
 import FaqTeaser from "../components/FaqTeaser.astro";
 ---
 
@@ -24,7 +24,7 @@ import FaqTeaser from "../components/FaqTeaser.astro";
         <Downloads />
       </div>
       <div class="stage__visual">
-        <DSDevice />
+        <ScreenshotCarousel />
       </div>
     </div>
     <HingeDivider />
@@ -40,7 +40,7 @@ import FaqTeaser from "../components/FaqTeaser.astro";
   }
 
   @media (max-width: 1023.98px) {
-    /* Hoists the device above the content it's meant to be pinned over —
+    /* Hoists the carousel above the content it's meant to be pinned over —
        otherwise, as the second element in document order, it would render
        below all three sections on a single-column mobile layout. */
     .stage__visual {
@@ -55,7 +55,7 @@ import FaqTeaser from "../components/FaqTeaser.astro";
     }
 
     /* Stretched (not align-items: start) so this grid item's own box spans
-       the full row height — the sticky device inside needs a tall enough
+       the full row height — the sticky carousel inside needs a tall enough
        containing block to travel within, or it runs out of room to stick
        to after one screen's worth of scroll and scrolls away with it. */
     .stage__visual {

@@ -2,7 +2,7 @@
 ---
 
 <section class="hero">
-  <div class="hero__panel hero__panel--top" data-ds-section="hero">
+  <div class="hero__panel hero__panel--top">
     <div class="section-inner hero__content">
       <h1>Fast, accurate Nintendo DS emulation.</h1>
       <p class="hero__lede">
@@ -20,15 +20,19 @@
 
 <style>
   .hero__panel {
-    padding: clamp(3rem, 8vw, 5.5rem) var(--gutter);
+    padding-block: clamp(3rem, 8vw, 5.5rem);
   }
 
   .hero__panel--top {
     background: var(--shell);
   }
 
+  /* Padding lives on the same box as the max-width/centering (like
+     .section + .section-inner elsewhere), so the heading's left edge
+     lands at the same x as Features/Downloads instead of drifting by
+     one gutter when the two responsibilities are split across elements. */
   .hero__content {
-    max-width: 40rem;
+    padding-inline: var(--gutter);
   }
 
   h1 {
