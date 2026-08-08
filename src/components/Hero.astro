@@ -1,0 +1,73 @@
+---
+import HingeDivider from "./HingeDivider.astro";
+import DSDevice from "./DSDevice.astro";
+---
+
+<section class="hero">
+  <div class="hero__panel hero__panel--top" data-ds-section="hero">
+    <div class="section-inner hero__content">
+      <h1>Fast, accurate Nintendo DS emulation.</h1>
+      <p class="hero__lede">
+        melonDS aims to emulate the Nintendo DS — and DSi — accurately, without
+        giving up speed. It's still evolving, but the core is nearly complete,
+        with a solid set of features already in place.
+      </p>
+      <div class="hero__actions">
+        <a class="button button-primary" href="#downloads">Download melonDS</a>
+        <a class="button button-ghost" href="#features">See what's emulated</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__mobile-visual">
+    <HingeDivider />
+    <div class="hero__panel hero__panel--bottom">
+      <div class="section-inner">
+        <DSDevice activeVariant="hero" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero__panel {
+    padding: clamp(3rem, 8vw, 5.5rem) var(--gutter);
+  }
+
+  .hero__panel--top {
+    background: var(--shell);
+  }
+
+  .hero__panel--bottom {
+    background: var(--panel);
+  }
+
+  .hero__content {
+    max-width: 40rem;
+  }
+
+  h1 {
+    font-size: clamp(2.4rem, 5vw, 3.75rem);
+    letter-spacing: -0.01em;
+  }
+
+  .hero__lede {
+    margin-top: 1.5rem;
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    max-width: 34rem;
+  }
+
+  .hero__actions {
+    margin-top: 2.25rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  @media (min-width: 1024px) {
+    .hero__mobile-visual {
+      display: none;
+    }
+  }
+</style>

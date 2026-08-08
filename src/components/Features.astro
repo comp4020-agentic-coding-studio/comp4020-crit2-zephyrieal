@@ -1,0 +1,139 @@
+---
+import DSDevice from "./DSDevice.astro";
+
+// Regrouped from melonDS's own feature list (rewritten, not copied) into
+// eight cards instead of a flat bullet list.
+const features = [
+  {
+    title: "A near-complete core",
+    body: "CPU, video, and audio are all emulated directly, covering nearly everything the hardware does.",
+  },
+  {
+    title: "JIT recompiler",
+    body: "Keeps emulation fast without trading away the accuracy the core is built for.",
+  },
+  {
+    title: "Enhanced 3D rendering",
+    body: "An OpenGL renderer upscales the DS's 3D output, with flexible screen position, sizing, and rotation modes.",
+  },
+  {
+    title: "Hardware extras",
+    body: "Real-time clock, microphone input, and lid open/close detection are all emulated, not stubbed out.",
+  },
+  {
+    title: "Joystick support",
+    body: "Play with a controller alongside keyboard and touch input.",
+  },
+  {
+    title: "Savestates",
+    body: "Pick up exactly where you left off, instead of relying on in-game saves alone.",
+  },
+  {
+    title: "Connectivity",
+    body: "Local wireless multiplayer works today; online connectivity is still in progress.",
+    wip: true,
+  },
+  {
+    title: "DSi & add-ons",
+    body: "DSi emulation and GBA slot add-ons are under active development. DLDI support is already in place.",
+    wip: true,
+  },
+];
+---
+
+<section class="features" id="features" data-ds-section="features">
+  <div class="section section-inner">
+    <span class="eyebrow">What's emulated</span>
+    <h2>A solid set of features — and more still landing.</h2>
+    <ul class="features__grid">
+      {
+        features.map((f) => (
+          <li class="feature">
+            {f.wip && <span class="feature__tag">WIP</span>}
+            <h3>{f.title}</h3>
+            <p>{f.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="features__mobile-visual">
+      <DSDevice activeVariant="features" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .features {
+    background: var(--panel);
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    max-width: 32rem;
+    margin-top: 0.5rem;
+  }
+
+  .features__grid {
+    margin: 2.5rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+
+  .feature {
+    position: relative;
+    background: var(--panel-raised);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+  }
+
+  .feature h3 {
+    font-size: 1.05rem;
+    font-family: var(--font-body);
+    font-weight: 700;
+  }
+
+  .feature p {
+    margin-top: 0.6rem;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+  }
+
+  .feature__tag {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    color: var(--led);
+    border: 1px solid var(--led);
+    border-radius: 999px;
+    padding: 0.15rem 0.5rem;
+  }
+
+  @media (max-width: 1024px) {
+    .features__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .features__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .features__mobile-visual {
+    margin-top: 2.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .features__mobile-visual {
+      display: none;
+    }
+  }
+</style>

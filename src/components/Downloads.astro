@@ -1,0 +1,122 @@
+---
+import DSDevice from "./DSDevice.astro";
+
+// Real platform/arch matrix (verified against the project's own downloads
+// page). No fabricated checksums here — those only mean something copied
+// straight off the real release, so this links out to it instead.
+const platforms = [
+  { name: "Windows", variants: ["x64", "ARM64"] },
+  { name: "macOS", variants: ["Universal"] },
+  { name: "Linux", variants: ["x64", "ARM64", "AppImage (x64)", "AppImage (ARM64)"] },
+  { name: "BSD", variants: ["FreeBSD", "OpenBSD", "NetBSD"] },
+];
+
+const releasesUrl = "https://github.com/melonDS-emu/melonDS/releases";
+---
+
+<section class="downloads" id="downloads" data-ds-section="downloads">
+  <div class="section section-inner">
+    <span class="eyebrow">Get melonDS</span>
+    <h2>Every build is 64-bit, and every platform is covered.</h2>
+    <p class="downloads__lede">
+      Windows and Linux each ship native x64 and ARM64 builds, macOS gets one
+      Universal build for both architectures, and the BSD family is covered
+      too. Grab the latest release, or a nightly build if you want to track
+      development closely.
+    </p>
+    <ul class="downloads__grid">
+      {
+        platforms.map((p) => (
+          <li class="platform">
+            <h3>{p.name}</h3>
+            <ul class="platform__variants">
+              {p.variants.map((v) => (
+                <li>{v}</li>
+              ))}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+    <a class="button button-primary" href={releasesUrl} target="_blank" rel="noopener noreferrer">
+      View releases on GitHub
+    </a>
+    <div class="downloads__mobile-visual">
+      <DSDevice activeVariant="downloads" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .downloads {
+    background: var(--shell);
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    max-width: 34rem;
+    margin-top: 0.5rem;
+  }
+
+  .downloads__lede {
+    margin-top: 1rem;
+    color: var(--text-muted);
+    max-width: 38rem;
+  }
+
+  .downloads__grid {
+    margin: 2.5rem 0 2.5rem;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+
+  .platform {
+    background: var(--panel);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+  }
+
+  .platform h3 {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+
+  .platform__variants {
+    margin: 0.85rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--glow);
+  }
+
+  @media (max-width: 1024px) {
+    .downloads__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .downloads__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .downloads__mobile-visual {
+    margin-top: 2.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .downloads__mobile-visual {
+      display: none;
+    }
+  }
+</style>

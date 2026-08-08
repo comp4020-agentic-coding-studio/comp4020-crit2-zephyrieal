@@ -1,26 +1,50 @@
 ---
-import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import Hero from "../components/Hero.astro";
+import HingeDivider from "../components/HingeDivider.astro";
+import Features from "../components/Features.astro";
+import Downloads from "../components/Downloads.astro";
+import DSDevice from "../components/DSDevice.astro";
 ---
 
-<!doctype html>
-<html lang="en-AU">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>COMP4020 prototype</title>
-  </head>
-  <body>
-    <header>
-      <nav aria-label="Primary">
-        <a href={import.meta.env.BASE_URL}>Home</a>
-      </nav>
-    </header>
-    <main>
-      <h1>COMP4020 prototype</h1>
-      <p data-testid="intro">
-        Replace this with your prototype. This week's brief is on the course website;
-        <code>spec/README.md</code> explains how the checks in this repo relate to it.
-      </p>
-    </main>
-  </body>
-</html>
+<Layout title="melonDS — a Nintendo DS emulator">
+  <SiteHeader />
+  <main>
+    <div class="stage">
+      <div class="stage__content">
+        <Hero />
+        <HingeDivider />
+        <Features />
+        <HingeDivider />
+        <Downloads />
+      </div>
+      <div class="stage__visual">
+        <DSDevice sticky />
+      </div>
+    </div>
+  </main>
+  <SiteFooter />
+</Layout>
+
+<style>
+  .stage {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 1024px) {
+    .stage {
+      grid-template-columns: 1fr 26rem;
+    }
+
+    /* Stretched (not align-items: start) so this grid item's own box spans
+       the full row height — the sticky device inside needs a tall enough
+       containing block to travel within, or it runs out of room to stick
+       to after one screen's worth of scroll and scrolls away with it. */
+    .stage__visual {
+      padding: 3rem var(--gutter) 3rem 0;
+    }
+  }
+</style>
