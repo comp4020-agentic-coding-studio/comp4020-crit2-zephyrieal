@@ -4,24 +4,29 @@ import SiteHeader from "../../components/SiteHeader.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import HingeDivider from "../../components/HingeDivider.astro";
 
+const base = import.meta.env.BASE_URL;
+
 const links = [
   {
     title: "Source",
     body: "melonDS is free software, developed in the open under the GPL-3.0 licence. Read the code, file an issue, or send a pull request.",
     href: "https://github.com/melonDS-emu/melonDS",
     cta: "View on GitHub",
+    external: true,
   },
   {
     title: "Forums",
-    body: "The project's own forum is where discussion, bug reports, and longer-form help threads happen.",
-    href: "https://melonds.kuribo64.net/board/",
-    cta: "Visit the forums",
+    body: "The project's own forum is where discussion, bug reports, and longer-form help threads happen. This site has a snapshot of the board index.",
+    href: `${base}forum/`,
+    cta: "Browse the forum",
+    external: false,
   },
   {
     title: "Support the project",
     body: "melonDS is built by volunteers in their own time. Donations go directly to the people doing that work.",
     href: "https://melonds.kuribo64.net/donate.php",
     cta: "Donate",
+    external: true,
   },
 ];
 ---
@@ -48,7 +53,12 @@ const links = [
               <li class="link-card" data-reveal style={`--reveal-delay: ${0.08 * i}s`}>
                 <h2>{l.title}</h2>
                 <p>{l.body}</p>
-                <a class="button button-ghost" href={l.href} target="_blank" rel="noopener noreferrer">
+                <a
+                  class="button button-ghost"
+                  href={l.href}
+                  target={l.external ? "_blank" : undefined}
+                  rel={l.external ? "noopener noreferrer" : undefined}
+                >
                   {l.cta}
                 </a>
               </li>
