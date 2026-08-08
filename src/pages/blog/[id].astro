@@ -1,0 +1,164 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import HingeDivider from "../../components/HingeDivider.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Layout title={`${post.data.title} — melonDS blog`} description={post.data.excerpt}>
+  <SiteHeader />
+  <main>
+    <article>
+      <section class="intro">
+        <div class="section section-inner">
+          <span class="eyebrow">{post.data.author}</span>
+          <h1>{post.data.title}</h1>
+          <p class="intro__date">
+            {
+              post.data.date.toLocaleDateString("en-AU", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })
+            }
+          </p>
+        </div>
+      </section>
+      <HingeDivider />
+      <section class="body">
+        <div class="section section-inner">
+          <div class="prose">
+            <Content />
+          </div>
+
+          {
+            post.data.comments.length > 0 && (
+              <div class="comments">
+                <h2>
+                  {post.data.comments.length}{" "}
+                  {post.data.comments.length === 1 ? "comment" : "comments"}
+                </h2>
+                <p class="comments__note">
+                  Archived from the original thread — read-only, since this
+                  redesign has no backend for a new comment to go to.
+                </p>
+                <ul class="comments__list">
+                  {post.data.comments.map((c) => (
+                    <li class="comment">
+                      <span class="comment__author">{c.author}</span>
+                      <span class="comment__date">
+                        {c.date.toLocaleDateString("en-AU", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </span>
+                      <p>{c.body}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          }
+        </div>
+      </section>
+    </article>
+  </main>
+  <SiteFooter />
+</Layout>
+
+<style>
+  .intro {
+    background: var(--shell);
+  }
+
+  h1 {
+    font-size: clamp(1.9rem, 4vw, 2.75rem);
+    margin-top: 0.5rem;
+    max-width: 38rem;
+  }
+
+  .intro__date {
+    margin-top: 0.75rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+  }
+
+  .body {
+    background: var(--panel);
+  }
+
+  .prose {
+    max-width: 38rem;
+    color: var(--text);
+  }
+
+  .prose :global(p) {
+    margin-bottom: 1.25rem;
+    color: var(--text-muted);
+  }
+
+  .comments {
+    margin-top: 3rem;
+    max-width: 38rem;
+    border-top: 1px solid var(--hairline);
+    padding-top: 2rem;
+  }
+
+  .comments h2 {
+    font-size: 1.1rem;
+    font-family: var(--font-body);
+    font-weight: 700;
+  }
+
+  .comments__note {
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
+  .comments__list {
+    margin: 1.5rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .comment {
+    background: var(--panel-raised);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.25rem;
+  }
+
+  .comment__author {
+    font-weight: 600;
+  }
+
+  .comment__date {
+    margin-left: 0.5rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .comment p {
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+  }
+</style>

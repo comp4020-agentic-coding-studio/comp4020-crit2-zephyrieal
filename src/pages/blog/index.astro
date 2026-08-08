@@ -1,0 +1,111 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import HingeDivider from "../../components/HingeDivider.astro";
+
+const base = import.meta.env.BASE_URL;
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+
+<Layout title="Blog — melonDS" description="Development updates from the melonDS project.">
+  <SiteHeader />
+  <main>
+    <section class="intro">
+      <div class="section section-inner">
+        <span class="eyebrow">Blog</span>
+        <h1>Development updates.</h1>
+        <p class="intro__lede">
+          Notes from the people building melonDS — what changed, and why.
+        </p>
+      </div>
+    </section>
+    <HingeDivider />
+    <section class="posts">
+      <div class="section section-inner">
+        <ul class="posts__list">
+          {
+            posts.map((post) => (
+              <li class="post">
+                <a href={`${base}blog/${post.id}/`}>
+                  <span class="post__date">
+                    {post.data.date.toLocaleDateString("en-AU", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </span>
+                  <h2>{post.data.title}</h2>
+                  <p>{post.data.excerpt}</p>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</Layout>
+
+<style>
+  .intro {
+    background: var(--shell);
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-top: 0.5rem;
+  }
+
+  .intro__lede {
+    margin-top: 1rem;
+    color: var(--text-muted);
+    max-width: 32rem;
+  }
+
+  .posts {
+    background: var(--panel);
+  }
+
+  .posts__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .post a {
+    display: block;
+    background: var(--panel-raised);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .post__date {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .post h2 {
+    margin-top: 0.5rem;
+    font-size: 1.3rem;
+    font-family: var(--font-body);
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .post p {
+    margin-top: 0.6rem;
+    color: var(--text-muted);
+  }
+</style>
