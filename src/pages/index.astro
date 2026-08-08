@@ -16,15 +16,17 @@ import FaqTeaser from "../components/FaqTeaser.astro";
   <SiteHeader />
   <main>
     <div class="stage">
-      <div class="stage__content">
+      <div class="stage__hero">
         <Hero />
+      </div>
+      <div class="stage__visual">
+        <ScreenshotCarousel />
+      </div>
+      <div class="stage__content">
         <HingeDivider />
         <Features />
         <HingeDivider />
         <Downloads />
-      </div>
-      <div class="stage__visual">
-        <ScreenshotCarousel />
       </div>
     </div>
     <HingeDivider />
@@ -40,12 +42,11 @@ import FaqTeaser from "../components/FaqTeaser.astro";
   }
 
   @media (max-width: 1023.98px) {
-    /* Hoists the carousel above the content it's meant to be pinned over —
-       otherwise, as the second element in document order, it would render
-       below all three sections on a single-column mobile layout. */
+    /* DOM order alone (hero, visual, content) puts the carousel right after
+       the intro heading/lede and before Features/Downloads on the
+       single-column mobile layout — no reordering needed here. */
     .stage__visual {
-      order: -1;
-      padding: 1.5rem var(--gutter) 0;
+      padding: 1.5rem var(--gutter);
     }
   }
 
@@ -60,6 +61,21 @@ import FaqTeaser from "../components/FaqTeaser.astro";
       padding-inline: var(--gutter);
       grid-template-columns: 1fr 20rem;
       column-gap: 2rem;
+      /* Named areas (not DOM order) place hero/content in the left column
+         stacked in two rows, with visual spanning both rows in the right
+         column — independent of the source order used for the mobile
+         layout above. */
+      grid-template-areas:
+        "hero    visual"
+        "content visual";
+    }
+
+    .stage__hero {
+      grid-area: hero;
+    }
+
+    .stage__content {
+      grid-area: content;
     }
 
     /* The carousel sticks and self-centers inside THIS box: height:100vh
@@ -72,6 +88,7 @@ import FaqTeaser from "../components/FaqTeaser.astro";
        on the carousel itself did (the sticky release calc uses the
        pre-transform box, which is taller than what's actually visible). */
     .stage__visual {
+      grid-area: visual;
       position: sticky;
       top: 0;
       height: 100vh;
