@@ -4,29 +4,24 @@ import SiteHeader from "../../components/SiteHeader.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import HingeDivider from "../../components/HingeDivider.astro";
 
-// Illustrative panels, not captured screenshots — this redesign doesn't have
-// rights to real in-emulator captures, so each panel is honestly labelled as
-// a stylised render of what the feature does rather than a screenshot of it.
+const base = import.meta.env.BASE_URL;
+
+// Real in-emulator captures, sourced from melonDS's own screenshots page
+// (melonds.kuribo64.net/screenshots.php) — a reversal of this redesign's
+// earlier illustrative-panels approach, at the user's explicit request.
 const panels = [
-  {
-    title: "Upscaled 3D rendering",
-    body: "The OpenGL renderer pushes the DS's 3D output well past its native resolution.",
-    colors: ["#2b3a55", "#7fe0ff"],
-  },
-  {
-    title: "Flexible screen layouts",
-    body: "Position, size, and rotate the two screens independently instead of a fixed stack.",
-    colors: ["#1d2129", "#ffa857"],
-  },
-  {
-    title: "Savestates",
-    body: "Snapshot a session and return to the exact same moment later.",
-    colors: ["#262b35", "#7fe0ff"],
-  },
+  { file: "melonds1.png", title: "New Super Mario Bros.", body: "Overworld map, upper and lower screens stacked." },
+  { file: "melonds4.png", title: "Super Mario 64 DS", body: "3D platforming rendered through the OpenGL renderer." },
+  { file: "melonds3.png", title: "Mario Kart DS", body: "Split-screen racing HUD across both screens." },
+  { file: "melonds7.png", title: "Mario Kart DS", body: "In-race view, touch-screen map on the bottom." },
+  { file: "melonDS8.png", title: "Scribblenauts", body: "Touch-driven object spawning and physics." },
+  { file: "scribbleshiz.png", title: "Tongari Bōshi to Oshare na Mahōtsukai", body: "Title screen." },
+  { file: "tongari.png", title: "Tongari Bōshi to Oshare na Mahōtsukai", body: "In-game dialogue scene." },
+  { file: "tongari3.png", title: "Tongari Bōshi to Oshare na Mahōtsukai", body: "Field exploration view." },
 ];
 ---
 
-<Layout title="Screenshots — melonDS" description="Stylised renders of what melonDS's rendering, layout, and savestate features look like in practice.">
+<Layout title="Screenshots — melonDS" description="Real in-emulator captures showing melonDS running a range of commercial DS titles.">
   <SiteHeader />
   <main>
     <section class="intro">
@@ -34,9 +29,8 @@ const panels = [
         <span class="eyebrow">Screenshots</span>
         <h1>What it looks like in practice.</h1>
         <p class="intro__lede">
-          These are stylised renders built for this redesign, not captured
-          screenshots — they illustrate what each feature does rather than
-          showing a specific game running.
+          Real captures of melonDS running a range of commercial titles,
+          straight off the emulator's own screens.
         </p>
       </div>
     </section>
@@ -48,12 +42,7 @@ const panels = [
             panels.map((p) => (
               <li class="panel">
                 <div class="panel__frame">
-                  <svg viewBox="0 0 320 200" role="img" aria-label={`Stylised illustration: ${p.title}`}>
-                    <rect width="320" height="200" fill={p.colors[0]} />
-                    <circle cx="240" cy="50" r="26" fill={p.colors[1]} opacity="0.5" />
-                    <polygon points="0,200 90,80 180,200" fill="#00000030" />
-                    <polygon points="120,200 220,60 320,200" fill="#00000020" />
-                  </svg>
+                  <img src={`${base}melon/${p.file}`} width="272" height="422" alt={`melonDS running ${p.title}`} loading="lazy" />
                 </div>
                 <h2>{p.title}</h2>
                 <p>{p.body}</p>
@@ -93,7 +82,7 @@ const panels = [
     padding: 0;
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
   }
 
@@ -101,11 +90,13 @@ const panels = [
     border-radius: var(--radius);
     overflow: hidden;
     border: 1px solid var(--hairline);
+    background: var(--shell);
   }
 
-  .panel__frame svg {
+  .panel__frame img {
     display: block;
     width: 100%;
+    height: auto;
   }
 
   .panel h2 {
@@ -122,6 +113,12 @@ const panels = [
   }
 
   @media (max-width: 900px) {
+    .gallery__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
     .gallery__grid {
       grid-template-columns: 1fr;
     }
