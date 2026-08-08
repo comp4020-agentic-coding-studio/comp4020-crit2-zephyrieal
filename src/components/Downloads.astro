@@ -1,4 +1,8 @@
 ---
+import PlatformIcon from "./PlatformIcon.astro";
+
+const base = import.meta.env.BASE_URL;
+
 // Real platform/arch matrix (verified against the project's own downloads
 // page). No fabricated checksums here — those only mean something copied
 // straight off the real release, so this links out to it instead.
@@ -26,7 +30,10 @@ const releasesUrl = "https://github.com/melonDS-emu/melonDS/releases";
       {
         platforms.map((p) => (
           <li class="platform">
-            <h3>{p.name}</h3>
+            <div class="platform__header">
+              {(p.name === "Windows" || p.name === "macOS" || p.name === "Linux") && <PlatformIcon name={p.name} />}
+              <h3>{p.name}</h3>
+            </div>
             <ul class="platform__variants">
               {p.variants.map((v) => (
                 <li>{v}</li>
@@ -36,9 +43,14 @@ const releasesUrl = "https://github.com/melonDS-emu/melonDS/releases";
         ))
       }
     </ul>
-    <a class="button button-primary" href={releasesUrl} target="_blank" rel="noopener noreferrer">
-      View releases on GitHub
-    </a>
+    <div class="downloads__actions">
+      <a class="button button-primary" href={releasesUrl} target="_blank" rel="noopener noreferrer">
+        View releases on GitHub
+      </a>
+      <a class="button button-ghost" href={`${base}downloads/`}>
+        Changelogs & nightly builds
+      </a>
+    </div>
   </div>
 </section>
 
@@ -75,10 +87,22 @@ const releasesUrl = "https://github.com/melonDS-emu/melonDS/releases";
     padding: 1.5rem;
   }
 
+  .platform__header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
   .platform h3 {
     font-family: var(--font-body);
     font-weight: 700;
     font-size: 1.05rem;
+  }
+
+  .downloads__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
 
   .platform__variants {

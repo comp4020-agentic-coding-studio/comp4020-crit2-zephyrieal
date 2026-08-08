@@ -1,0 +1,308 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import HingeDivider from "../../components/HingeDivider.astro";
+import PlatformIcon from "../../components/PlatformIcon.astro";
+
+// Rewritten, not copied, from the real project's downloads page
+// (melonds.kuribo64.net/downloads.php): the version, date, and changelog
+// substance are real, but the wording is this redesign's own, and sizes are
+// labelled approximate rather than reproduced as exact fabricated numbers.
+// Checksums aren't reproduced at all — the same policy as the homepage's
+// Downloads section, and for the same reason: a copied checksum only means
+// something next to the exact file it was generated from, so this links out
+// to the real release instead of pretending to vouch for one.
+const latest = {
+  version: "melonDS 1.1",
+  date: "November 18, 2025",
+  summary:
+    "Adds DSP high-level emulation for DSi audio and microphone input, cheat importing from usrcheat.dat, official BSD builds, and a run of smaller bugfixes.",
+};
+
+const changelog = [
+  "DSi: added DSP high-level emulation, DSP audio, and microphone input.",
+  "Multiplayer: made the input system thread-safe, fixing a random crash during local play.",
+  "Windows: builds can now be produced without MinGW.",
+  "BSD: assorted JIT compiler fixes across FreeBSD, OpenBSD, and NetBSD.",
+  "Audio: added high-quality resampling via blip-buf.",
+  "Cheats: added support for importing cheats from usrcheat.dat, with UI improvements.",
+];
+
+const platforms = [
+  { name: "Windows" as const, variants: [
+    { label: "x64", size: "~18.6 MB" },
+    { label: "ARM64", size: "~12.0 MB" },
+  ] },
+  { name: "macOS" as const, variants: [{ label: "Universal", size: "~23.3 MB" }] },
+  { name: "Linux" as const, variants: [
+    { label: "x64", size: "~1.7 MB" },
+    { label: "ARM64", size: "~1.8 MB" },
+    { label: "AppImage (x64)", size: "~32 MB" },
+    { label: "AppImage (ARM64)", size: "~32 MB" },
+  ] },
+  { name: "BSD" as const, variants: [
+    { label: "FreeBSD", size: "~1.6 MB" },
+    { label: "OpenBSD", size: "~1.8 MB" },
+    { label: "NetBSD", size: "~1.6 MB" },
+  ] },
+];
+
+const releasesUrl = "https://github.com/melonDS-emu/melonDS/releases";
+const actionsUrl = "https://github.com/melonDS-emu/melonDS/actions";
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Layout title="Downloads — melonDS" description="Latest release changelog, platform builds, nightly builds, and release archive for melonDS.">
+  <SiteHeader />
+  <main>
+    <section class="intro">
+      <div class="section section-inner">
+        <span class="eyebrow">Downloads</span>
+        <h1>{latest.version} — {latest.date}</h1>
+        <p class="intro__lede">{latest.summary}</p>
+        <a class="button button-primary" href={releasesUrl} target="_blank" rel="noopener noreferrer">
+          Download {latest.version} on GitHub
+        </a>
+      </div>
+    </section>
+
+    <HingeDivider />
+
+    <section class="changelog">
+      <div class="section section-inner">
+        <h2>What changed</h2>
+        <ul class="changelog__list">
+          {changelog.map((line) => <li>{line}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <HingeDivider />
+
+    <section class="builds">
+      <div class="section section-inner">
+        <h2>Builds in this release</h2>
+        <p class="builds__lede">
+          Every build is 64-bit. Sizes are approximate — the exact size and
+          checksum for the file you download are on the release page itself.
+        </p>
+        <ul class="builds__grid">
+          {
+            platforms.map((p) => (
+              <li class="platform">
+                <div class="platform__header">
+                  {(p.name === "Windows" || p.name === "macOS" || p.name === "Linux") && <PlatformIcon name={p.name} />}
+                  <h3>{p.name}</h3>
+                </div>
+                <ul class="platform__variants">
+                  {p.variants.map((v) => (
+                    <li>
+                      <span>{v.label}</span>
+                      <span class="platform__size">{v.size}</span>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <HingeDivider />
+
+    <section class="more">
+      <div class="section section-inner">
+        <ul class="more__grid">
+          <li class="more-card">
+            <h2>Older releases</h2>
+            <p>The full release archive, going all the way back to 0.1.</p>
+            <a class="button button-ghost" href={releasesUrl} target="_blank" rel="noopener noreferrer">
+              Browse the archive
+            </a>
+          </li>
+          <li class="more-card">
+            <h2>Nightly builds</h2>
+            <p>Cutting-edge builds straight from the GitHub repository, ahead of the next stable release.</p>
+            <a class="button button-ghost" href={actionsUrl} target="_blank" rel="noopener noreferrer">
+              See build runs
+            </a>
+          </li>
+          <li class="more-card">
+            <h2>BIOS &amp; firmware dumpers</h2>
+            <p>melonDS needs files dumped from real hardware before it'll boot anything.</p>
+            <a class="button button-ghost" href={`${base}faq/`}>Read the FAQ</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</Layout>
+
+<style>
+  .intro {
+    background: var(--shell);
+  }
+
+  h1 {
+    font-size: clamp(1.9rem, 4vw, 2.75rem);
+    max-width: 36rem;
+    margin-top: 0.5rem;
+  }
+
+  .intro__lede {
+    margin-top: 1rem;
+    color: var(--text-muted);
+    max-width: 36rem;
+  }
+
+  .intro .button-primary {
+    display: inline-flex;
+    margin-top: 1.75rem;
+  }
+
+  .changelog {
+    background: var(--panel);
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  .changelog__list {
+    margin: 1.5rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 42rem;
+  }
+
+  .changelog__list li {
+    padding-left: 1.1rem;
+    position: relative;
+    color: var(--text-muted);
+  }
+
+  .changelog__list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 999px;
+    background: var(--glow);
+  }
+
+  .builds {
+    background: var(--shell);
+  }
+
+  .builds__lede {
+    margin-top: 0.75rem;
+    color: var(--text-muted);
+    max-width: 38rem;
+  }
+
+  .builds__grid {
+    margin: 2rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+
+  .platform {
+    background: var(--panel);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+  }
+
+  .platform__header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .platform h3 {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+
+  .platform__variants {
+    margin: 0.85rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+
+  .platform__variants li {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    color: var(--glow);
+  }
+
+  .platform__size {
+    color: var(--text-muted);
+  }
+
+  .more {
+    background: var(--panel);
+  }
+
+  .more__grid {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .more-card {
+    background: var(--panel-raised);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .more-card p {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    flex-grow: 1;
+  }
+
+  @media (max-width: 1024px) {
+    .builds__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .more__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .builds__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
