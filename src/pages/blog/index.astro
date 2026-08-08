@@ -16,9 +16,9 @@ const posts = (await getCollection("blog")).sort(
   <main>
     <section class="intro">
       <div class="section section-inner">
-        <span class="eyebrow">Blog</span>
-        <h1>Development updates.</h1>
-        <p class="intro__lede">
+        <span class="eyebrow" data-reveal>Blog</span>
+        <h1 data-reveal style="--reveal-delay: 0.1s">Development updates.</h1>
+        <p class="intro__lede" data-reveal style="--reveal-delay: 0.15s">
           Notes from the people building melonDS — what changed, and why.
         </p>
       </div>
@@ -28,8 +28,8 @@ const posts = (await getCollection("blog")).sort(
       <div class="section section-inner">
         <ul class="posts__list">
           {
-            posts.map((post) => (
-              <li class="post">
+            posts.map((post, i) => (
+              <li class="post" data-reveal style={`--reveal-delay: ${0.06 * i}s`}>
                 <a href={`${base}blog/${post.id}/`}>
                   <span class="post__date">
                     {post.data.date.toLocaleDateString("en-AU", {

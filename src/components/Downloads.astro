@@ -18,9 +18,9 @@ const releasesUrl = "https://github.com/melonDS-emu/melonDS/releases";
 
 <section class="downloads" id="downloads">
   <div class="section section-inner">
-    <span class="eyebrow">Get melonDS</span>
-    <h2>Every build is 64-bit, and every platform is covered.</h2>
-    <p class="downloads__lede">
+    <span class="eyebrow" data-reveal>Get melonDS</span>
+    <h2 data-reveal style="--reveal-delay: 0.1s">Every build is 64-bit, and every platform is covered.</h2>
+    <p class="downloads__lede" data-reveal style="--reveal-delay: 0.15s">
       Windows and Linux each ship native x64 and ARM64 builds, macOS gets one
       Universal build for both architectures, and the BSD family is covered
       too. Grab the latest release, or a nightly build if you want to track
@@ -28,8 +28,8 @@ const releasesUrl = "https://github.com/melonDS-emu/melonDS/releases";
     </p>
     <ul class="downloads__grid">
       {
-        platforms.map((p) => (
-          <li class="platform">
+        platforms.map((p, i) => (
+          <li class="platform" data-reveal style={`--reveal-delay: ${0.05 * i}s`}>
             <div class="platform__header">
               {(p.name === "Windows" || p.name === "macOS" || p.name === "Linux") && <PlatformIcon name={p.name} />}
               <h3>{p.name}</h3>
@@ -43,7 +43,7 @@ const releasesUrl = "https://github.com/melonDS-emu/melonDS/releases";
         ))
       }
     </ul>
-    <div class="downloads__actions">
+    <div class="downloads__actions" data-reveal>
       <a class="button button-primary" href={releasesUrl} target="_blank" rel="noopener noreferrer">
         View releases on GitHub
       </a>

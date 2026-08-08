@@ -59,10 +59,10 @@ const base = import.meta.env.BASE_URL;
   <main>
     <section class="intro">
       <div class="section section-inner">
-        <span class="eyebrow">Downloads</span>
-        <h1>{latest.version} — {latest.date}</h1>
-        <p class="intro__lede">{latest.summary}</p>
-        <a class="button button-primary" href={releasesUrl} target="_blank" rel="noopener noreferrer">
+        <span class="eyebrow" data-reveal>Downloads</span>
+        <h1 data-reveal style="--reveal-delay: 0.1s">{latest.version} — {latest.date}</h1>
+        <p class="intro__lede" data-reveal style="--reveal-delay: 0.15s">{latest.summary}</p>
+        <a class="button button-primary" data-reveal style="--reveal-delay: 0.2s" href={releasesUrl} target="_blank" rel="noopener noreferrer">
           Download {latest.version} on GitHub
         </a>
       </div>
@@ -72,9 +72,9 @@ const base = import.meta.env.BASE_URL;
 
     <section class="changelog">
       <div class="section section-inner">
-        <h2>What changed</h2>
+        <h2 data-reveal>What changed</h2>
         <ul class="changelog__list">
-          {changelog.map((line) => <li>{line}</li>)}
+          {changelog.map((line, i) => <li data-reveal style={`--reveal-delay: ${0.04 * i}s`}>{line}</li>)}
         </ul>
       </div>
     </section>
@@ -83,15 +83,15 @@ const base = import.meta.env.BASE_URL;
 
     <section class="builds">
       <div class="section section-inner">
-        <h2>Builds in this release</h2>
-        <p class="builds__lede">
+        <h2 data-reveal>Builds in this release</h2>
+        <p class="builds__lede" data-reveal style="--reveal-delay: 0.1s">
           Every build is 64-bit. Sizes are approximate — the exact size and
           checksum for the file you download are on the release page itself.
         </p>
         <ul class="builds__grid">
           {
-            platforms.map((p) => (
-              <li class="platform">
+            platforms.map((p, i) => (
+              <li class="platform" data-reveal style={`--reveal-delay: ${0.05 * i}s`}>
                 <div class="platform__header">
                   {(p.name === "Windows" || p.name === "macOS" || p.name === "Linux") && <PlatformIcon name={p.name} />}
                   <h3>{p.name}</h3>
@@ -116,21 +116,21 @@ const base = import.meta.env.BASE_URL;
     <section class="more">
       <div class="section section-inner">
         <ul class="more__grid">
-          <li class="more-card">
+          <li class="more-card" data-reveal>
             <h2>Older releases</h2>
             <p>The full release archive, going all the way back to 0.1.</p>
             <a class="button button-ghost" href={releasesUrl} target="_blank" rel="noopener noreferrer">
               Browse the archive
             </a>
           </li>
-          <li class="more-card">
+          <li class="more-card" data-reveal style="--reveal-delay: 0.08s">
             <h2>Nightly builds</h2>
             <p>Cutting-edge builds straight from the GitHub repository, ahead of the next stable release.</p>
             <a class="button button-ghost" href={actionsUrl} target="_blank" rel="noopener noreferrer">
               See build runs
             </a>
           </li>
-          <li class="more-card">
+          <li class="more-card" data-reveal style="--reveal-delay: 0.16s">
             <h2>BIOS &amp; firmware dumpers</h2>
             <p>melonDS needs files dumped from real hardware before it'll boot anything.</p>
             <a class="button button-ghost" href={`${base}faq/`}>Read the FAQ</a>

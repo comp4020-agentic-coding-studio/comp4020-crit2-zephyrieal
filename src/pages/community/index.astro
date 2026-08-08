@@ -31,9 +31,9 @@ const links = [
   <main>
     <section class="intro">
       <div class="section section-inner">
-        <span class="eyebrow">Community</span>
-        <h1>Source, discussion, and support — all in one place.</h1>
-        <p class="intro__lede">
+        <span class="eyebrow" data-reveal>Community</span>
+        <h1 data-reveal style="--reveal-delay: 0.1s">Source, discussion, and support — all in one place.</h1>
+        <p class="intro__lede" data-reveal style="--reveal-delay: 0.15s">
           melonDS is a community-run project. Here's where the community
           actually lives.
         </p>
@@ -44,8 +44,8 @@ const links = [
       <div class="section section-inner">
         <ul class="links__grid">
           {
-            links.map((l) => (
-              <li class="link-card">
+            links.map((l, i) => (
+              <li class="link-card" data-reveal style={`--reveal-delay: ${0.08 * i}s`}>
                 <h2>{l.title}</h2>
                 <p>{l.body}</p>
                 <a class="button button-ghost" href={l.href} target="_blank" rel="noopener noreferrer">

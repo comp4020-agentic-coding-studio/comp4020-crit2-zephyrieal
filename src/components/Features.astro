@@ -41,12 +41,12 @@ const features = [
 
 <section class="features" id="features">
   <div class="section section-inner">
-    <span class="eyebrow">What's emulated</span>
-    <h2>A solid set of features — and more still landing.</h2>
+    <span class="eyebrow" data-reveal>What's emulated</span>
+    <h2 data-reveal style="--reveal-delay: 0.1s">A solid set of features — and more still landing.</h2>
     <ul class="features__grid">
       {
-        features.map((f) => (
-          <li class="feature">
+        features.map((f, i) => (
+          <li class="feature" data-reveal style={`--reveal-delay: ${0.05 * (i % 4)}s`}>
             {f.wip && <span class="feature__tag">WIP</span>}
             <h3>{f.title}</h3>
             <p>{f.body}</p>

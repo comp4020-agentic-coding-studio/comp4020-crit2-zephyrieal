@@ -4,12 +4,12 @@ const base = import.meta.env.BASE_URL;
 
 <section class="faq-teaser">
   <div class="section section-inner faq-teaser__inner">
-    <div>
+    <div data-reveal>
       <span class="eyebrow">Questions?</span>
       <h2>BIOS files, savestates, multiplayer — answered.</h2>
       <p>The things new users ask before they ask them, condensed from melonDS's own Howto/FAQ page.</p>
     </div>
-    <a class="button button-ghost" href={`${base}faq/`}>Read the FAQ</a>
+    <a class="button button-ghost" href={`${base}faq/`} data-reveal style="--reveal-delay: 0.1s">Read the FAQ</a>
   </div>
 </section>
 

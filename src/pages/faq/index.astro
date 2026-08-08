@@ -72,9 +72,9 @@ const groups = [
   <main>
     <section class="intro">
       <div class="section section-inner">
-        <span class="eyebrow">FAQ</span>
-        <h1>The questions that come up before the fun does.</h1>
-        <p class="intro__lede">
+        <span class="eyebrow" data-reveal>FAQ</span>
+        <h1 data-reveal style="--reveal-delay: 0.1s">The questions that come up before the fun does.</h1>
+        <p class="intro__lede" data-reveal style="--reveal-delay: 0.15s">
           Condensed from melonDS's own
           <a href="https://melonds.kuribo64.net/faq.php" target="_blank" rel="noopener noreferrer">Howto/FAQ page</a>,
           which has the full walkthrough of every setting if you need more
@@ -88,10 +88,10 @@ const groups = [
         <>
           <section class="faq-group" style={`background: ${i % 2 === 0 ? "var(--panel)" : "var(--shell)"}`}>
             <div class="section section-inner">
-              <h2>{group.title}</h2>
+              <h2 data-reveal>{group.title}</h2>
               <div class="faq-list">
-                {group.entries.map((entry) => (
-                  <details class="faq-item">
+                {group.entries.map((entry, j) => (
+                  <details class="faq-item" data-reveal style={`--reveal-delay: ${0.05 * j}s`}>
                     <summary>{entry.q}</summary>
                     <p>{entry.a}</p>
                   </details>

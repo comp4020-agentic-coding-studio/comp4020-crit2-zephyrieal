@@ -96,12 +96,12 @@ const stats = { threads: 2135, posts: 8581, users: 15951 };
   <main>
     <section class="intro">
       <div class="section section-inner">
-        <span class="eyebrow">Forum</span>
-        <h1>A snapshot of the board, frozen in place.</h1>
-        <p class="intro__lede">
+        <span class="eyebrow" data-reveal>Forum</span>
+        <h1 data-reveal style="--reveal-delay: 0.1s">A snapshot of the board, frozen in place.</h1>
+        <p class="intro__lede" data-reveal style="--reveal-delay: 0.15s">
           This is a still picture of the real forum's board index as of {snapshotDate}, rebuilt here rather than embedded. Nothing on this page is clickable into a thread. Head to the real forum to actually read or post.
         </p>
-        <a class="button button-primary" href={boardUrl} target="_blank" rel="noopener noreferrer">
+        <a class="button button-primary" data-reveal style="--reveal-delay: 0.2s" href={boardUrl} target="_blank" rel="noopener noreferrer">
           Open the live forum
         </a>
       </div>
@@ -118,8 +118,8 @@ const stats = { threads: 2135, posts: 8581, users: 15951 };
         </ul>
 
         {
-          categories.map((cat) => (
-            <div class="category">
+          categories.map((cat, i) => (
+            <div class="category" data-reveal style={`--reveal-delay: ${0.08 * i}s`}>
               <h2>{cat.group}</h2>
               <table class="category__table">
                 <thead>

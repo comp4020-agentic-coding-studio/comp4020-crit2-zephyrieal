@@ -26,9 +26,9 @@ const panels = [
   <main>
     <section class="intro">
       <div class="section section-inner">
-        <span class="eyebrow">Screenshots</span>
-        <h1>What it looks like in practice.</h1>
-        <p class="intro__lede">
+        <span class="eyebrow" data-reveal>Screenshots</span>
+        <h1 data-reveal style="--reveal-delay: 0.1s">What it looks like in practice.</h1>
+        <p class="intro__lede" data-reveal style="--reveal-delay: 0.15s">
           Real captures of melonDS running a range of commercial titles,
           straight off the emulator's own screens.
         </p>
@@ -39,8 +39,8 @@ const panels = [
       <div class="section section-inner">
         <ul class="gallery__grid">
           {
-            panels.map((p) => (
-              <li class="panel">
+            panels.map((p, i) => (
+              <li class="panel" data-reveal style={`--reveal-delay: ${0.05 * (i % 4)}s`}>
                 <div class="panel__frame">
                   <img src={`${base}melon/${p.file}`} width="272" height="422" alt={`melonDS running ${p.title}`} loading="lazy" />
                 </div>

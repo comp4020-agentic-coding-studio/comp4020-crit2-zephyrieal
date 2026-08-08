@@ -132,6 +132,24 @@ img {
   }
 }
 
+/* Scroll-triggered reveal: elements start faded/offset, and get
+   .is-revealed added by the IntersectionObserver in Layout.astro once they
+   scroll into view. --reveal-delay lets a grid stagger its children without
+   needing separate transition rules per item. */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.001ms !important;

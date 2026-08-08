@@ -23,9 +23,9 @@ const { Content } = await render(post);
     <article>
       <section class="intro">
         <div class="section section-inner">
-          <span class="eyebrow">{post.data.author}</span>
-          <h1>{post.data.title}</h1>
-          <p class="intro__date">
+          <span class="eyebrow" data-reveal>{post.data.author}</span>
+          <h1 data-reveal style="--reveal-delay: 0.1s">{post.data.title}</h1>
+          <p class="intro__date" data-reveal style="--reveal-delay: 0.15s">
             {
               post.data.date.toLocaleDateString("en-AU", {
                 year: "numeric",
@@ -39,7 +39,7 @@ const { Content } = await render(post);
       <HingeDivider />
       <section class="body">
         <div class="section section-inner">
-          <div class="prose">
+          <div class="prose" data-reveal>
             <Content />
           </div>
 
@@ -55,8 +55,8 @@ const { Content } = await render(post);
                   redesign has no backend for a new comment to go to.
                 </p>
                 <ul class="comments__list">
-                  {post.data.comments.map((c) => (
-                    <li class="comment">
+                  {post.data.comments.map((c, i) => (
+                    <li class="comment" data-reveal style={`--reveal-delay: ${0.05 * i}s`}>
                       <span class="comment__author">{c.author}</span>
                       <span class="comment__date">
                         {c.date.toLocaleDateString("en-AU", {

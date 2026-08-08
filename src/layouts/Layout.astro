@@ -28,5 +28,36 @@ const {
   </head>
   <body>
     <slot />
+    <noscript>
+      <style>
+        [data-reveal] {
+          opacity: 1;
+          transform: none;
+        }
+      </style>
+    </noscript>
+    <script is:inline>
+      const revealTargets = document.querySelectorAll("[data-reveal]");
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      if (reduceMotion || !("IntersectionObserver" in window)) {
+        revealTargets.forEach((el) => el.classList.add("is-revealed"));
+      } else {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-revealed");
+                observer.unobserve(entry.target);
+              }
+            }
+          },
+          { threshold: 0.15, rootMargin: "0px 0px -10% 0px" },
+        );
+        revealTargets.forEach((el) => observer.observe(el));
+      }
+    </script>
   </body>
 </html>
