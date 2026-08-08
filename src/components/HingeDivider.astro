@@ -1,0 +1,33 @@
+---
+// The recurring structural device: every major section boundary is rendered
+// as the DS's hinge rather than plain whitespace, so the page reads as one
+// folded device instead of generic stacked sections.
+---
+
+<div class="hinge" role="presentation">
+  <span class="hinge__seam"></span>
+</div>
+
+<style>
+  .hinge {
+    height: 2.5rem;
+    background: linear-gradient(
+      to bottom,
+      var(--panel) 0%,
+      var(--shell) 50%,
+      var(--panel) 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hinge__seam {
+    width: min(100%, var(--content-max));
+    height: 2px;
+    background: var(--hairline);
+    box-shadow:
+      0 -3px 6px rgb(0 0 0 / 35%),
+      0 3px 6px rgb(0 0 0 / 35%);
+  }
+</style>
