@@ -1,0 +1,173 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import HingeDivider from "../../components/HingeDivider.astro";
+
+// Rewritten, not copied, from the real project's Howto/FAQ page
+// (melonds.kuribo64.net/faq.php) — same honesty rule as the rest of this
+// redesign. Answers are condensed to what a new user actually needs to know,
+// with a link out to the real page for the full walkthrough of every setting.
+const groups = [
+  {
+    title: "Getting started",
+    entries: [
+      {
+        q: "What files does melonDS need before it'll boot anything?",
+        a: "BIOS and firmware dumped from real hardware: a 4KB ARM9 BIOS, a 16KB ARM7 BIOS, and a firmware file (128/256/512KB depending on whether it came from a DSi/3DS, a regular DS, or an iQue DS). Set the paths under Emu Settings → DS-mode.",
+      },
+      {
+        q: "Why won't my firmware boot?",
+        a: "DSi/3DS-sourced DS-mode firmware isn't bootable on its own. Either supply a genuine DS or iQue DS firmware dump, or enable \"Boot game directly\" to skip the boot screen entirely.",
+      },
+      {
+        q: "What extra files does DSi emulation need?",
+        a: "A 64KB ARM9 BIOS, a 64KB ARM7 BIOS, a 128KB firmware, and a roughly 240MB NAND dump — all obtained from your own DSi via a separate dumper tool.",
+      },
+      {
+        q: "Where do I get ROMs?",
+        a: "Dump your own game carts using a DSi or 3DS system and copy the resulting files over. melonDS doesn't provide, host, or link to ROMs.",
+      },
+    ],
+  },
+  {
+    title: "Playing",
+    entries: [
+      {
+        q: "How do savestates work?",
+        a: "Shift+F1 through Shift+F9 saves to a slot, F1 through F9 loads it back, and F12 undoes the last load. Turn on \"Separate savefiles\" first if you want savestates to leave your original save data untouched.",
+      },
+      {
+        q: "Can I import a save file from another emulator?",
+        a: "Yes — as long as the save file's size matches exactly what melonDS expects for that game.",
+      },
+      {
+        q: "Multiplayer isn't working.",
+        a: "Wifi support is still a work in progress and not every game supports it. Local multiplayer can also be unstable; disabling the framerate limiter sometimes helps.",
+      },
+    ],
+  },
+  {
+    title: "Development & support",
+    entries: [
+      {
+        q: "Is there an official Android or mobile version?",
+        a: "No. Android and other mobile builds are unofficial third-party ports, and the melonDS team doesn't support them.",
+      },
+      {
+        q: "I found a bug, or I have a feature idea.",
+        a: "File it on the project's GitHub issue tracker, or bring it up on the forums — both are linked from the Community page.",
+      },
+      {
+        q: "Why name it melonDS?",
+        a: "Why not?",
+      },
+    ],
+  },
+];
+---
+
+<Layout title="FAQ — melonDS" description="Answers to the questions melonDS's own Howto/FAQ page gets asked most, condensed for this redesign.">
+  <SiteHeader />
+  <main>
+    <section class="intro">
+      <div class="section section-inner">
+        <span class="eyebrow">FAQ</span>
+        <h1>The questions that come up before the fun does.</h1>
+        <p class="intro__lede">
+          Condensed from melonDS's own
+          <a href="https://melonds.kuribo64.net/faq.php" target="_blank" rel="noopener noreferrer">Howto/FAQ page</a>,
+          which has the full walkthrough of every setting if you need more
+          than the short version.
+        </p>
+      </div>
+    </section>
+    <HingeDivider />
+    {
+      groups.map((group, i) => (
+        <>
+          <section class="faq-group" style={`background: ${i % 2 === 0 ? "var(--panel)" : "var(--shell)"}`}>
+            <div class="section section-inner">
+              <h2>{group.title}</h2>
+              <div class="faq-list">
+                {group.entries.map((entry) => (
+                  <details class="faq-item">
+                    <summary>{entry.q}</summary>
+                    <p>{entry.a}</p>
+                  </details>
+                ))}
+              </div>
+            </div>
+          </section>
+          {i < groups.length - 1 && <HingeDivider />}
+        </>
+      ))
+    }
+  </main>
+  <SiteFooter />
+</Layout>
+
+<style>
+  .intro {
+    background: var(--shell);
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    max-width: 34rem;
+    margin-top: 0.5rem;
+  }
+
+  .intro__lede {
+    margin-top: 1rem;
+    color: var(--text-muted);
+    max-width: 34rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  .faq-list {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .faq-item {
+    background: var(--panel-raised);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.25rem;
+  }
+
+  .faq-item summary {
+    cursor: pointer;
+    font-weight: 700;
+    list-style: none;
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item summary::before {
+    content: "+";
+    display: inline-block;
+    width: 1.1rem;
+    color: var(--glow);
+    font-family: var(--font-mono);
+  }
+
+  .faq-item[open] summary::before {
+    content: "–";
+  }
+
+  .faq-item p {
+    margin-top: 0.75rem;
+    padding-left: 1.1rem;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+  }
+</style>

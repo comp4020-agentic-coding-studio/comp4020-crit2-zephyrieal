@@ -1,0 +1,44 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<section class="faq-teaser">
+  <div class="section section-inner faq-teaser__inner">
+    <div>
+      <span class="eyebrow">Questions?</span>
+      <h2>BIOS files, savestates, multiplayer — answered.</h2>
+      <p>The things new users ask before they ask them, condensed from melonDS's own Howto/FAQ page.</p>
+    </div>
+    <a class="button button-ghost" href={`${base}faq/`}>Read the FAQ</a>
+  </div>
+</section>
+
+<style>
+  .faq-teaser {
+    background: var(--panel);
+  }
+
+  .faq-teaser__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  h2 {
+    font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+    max-width: 30rem;
+    margin-top: 0.4rem;
+  }
+
+  p {
+    margin-top: 0.6rem;
+    color: var(--text-muted);
+    max-width: 30rem;
+  }
+
+  .faq-teaser__inner > .button-ghost {
+    flex-shrink: 0;
+  }
+</style>
