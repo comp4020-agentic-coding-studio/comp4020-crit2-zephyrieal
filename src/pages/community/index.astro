@@ -1,0 +1,121 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import HingeDivider from "../../components/HingeDivider.astro";
+
+const links = [
+  {
+    title: "Source",
+    body: "melonDS is free software, developed in the open under the GPL-3.0 licence. Read the code, file an issue, or send a pull request.",
+    href: "https://github.com/melonDS-emu/melonDS",
+    cta: "View on GitHub",
+  },
+  {
+    title: "Forums",
+    body: "The project's own forum is where discussion, bug reports, and longer-form help threads happen.",
+    href: "https://melonds.kuribo64.net/board/",
+    cta: "Visit the forums",
+  },
+  {
+    title: "Support the project",
+    body: "melonDS is built by volunteers in their own time. Donations go directly to the people doing that work.",
+    href: "https://melonds.kuribo64.net/donate.php",
+    cta: "Donate",
+  },
+];
+---
+
+<Layout title="Community — melonDS" description="Where to find melonDS's source, forums, and how to support the project.">
+  <SiteHeader />
+  <main>
+    <section class="intro">
+      <div class="section section-inner">
+        <span class="eyebrow">Community</span>
+        <h1>Source, discussion, and support — all in one place.</h1>
+        <p class="intro__lede">
+          melonDS is a community-run project. Here's where the community
+          actually lives.
+        </p>
+      </div>
+    </section>
+    <HingeDivider />
+    <section class="links">
+      <div class="section section-inner">
+        <ul class="links__grid">
+          {
+            links.map((l) => (
+              <li class="link-card">
+                <h2>{l.title}</h2>
+                <p>{l.body}</p>
+                <a class="button button-ghost" href={l.href} target="_blank" rel="noopener noreferrer">
+                  {l.cta}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</Layout>
+
+<style>
+  .intro {
+    background: var(--shell);
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    max-width: 34rem;
+    margin-top: 0.5rem;
+  }
+
+  .intro__lede {
+    margin-top: 1rem;
+    color: var(--text-muted);
+    max-width: 32rem;
+  }
+
+  .links {
+    background: var(--panel);
+  }
+
+  .links__grid {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .link-card {
+    background: var(--panel-raised);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .link-card h2 {
+    font-size: 1.15rem;
+    font-family: var(--font-body);
+    font-weight: 700;
+  }
+
+  .link-card p {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    flex-grow: 1;
+  }
+
+  @media (max-width: 900px) {
+    .links__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
