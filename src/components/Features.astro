@@ -1,6 +1,4 @@
 ---
-import DSDevice from "./DSDevice.astro";
-
 // Regrouped from melonDS's own feature list (rewritten, not copied) into
 // eight cards instead of a flat bullet list.
 const features = [
@@ -56,9 +54,6 @@ const features = [
         ))
       }
     </ul>
-    <div class="features__mobile-visual">
-      <DSDevice activeVariant="features" />
-    </div>
   </div>
 </section>
 
@@ -127,13 +122,4 @@ const features = [
     }
   }
 
-  .features__mobile-visual {
-    margin-top: 2.5rem;
-  }
-
-  @media (min-width: 1024px) {
-    .features__mobile-visual {
-      display: none;
-    }
-  }
 </style>

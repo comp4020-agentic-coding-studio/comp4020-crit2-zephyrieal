@@ -1,6 +1,4 @@
 ---
-import DSDevice from "./DSDevice.astro";
-
 // Real platform/arch matrix (verified against the project's own downloads
 // page). No fabricated checksums here — those only mean something copied
 // straight off the real release, so this links out to it instead.
@@ -41,9 +39,6 @@ const releasesUrl = "https://github.com/melonDS-emu/melonDS/releases";
     <a class="button button-primary" href={releasesUrl} target="_blank" rel="noopener noreferrer">
       View releases on GitHub
     </a>
-    <div class="downloads__mobile-visual">
-      <DSDevice activeVariant="downloads" />
-    </div>
   </div>
 </section>
 
@@ -110,13 +105,4 @@ const releasesUrl = "https://github.com/melonDS-emu/melonDS/releases";
     }
   }
 
-  .downloads__mobile-visual {
-    margin-top: 2.5rem;
-  }
-
-  @media (min-width: 1024px) {
-    .downloads__mobile-visual {
-      display: none;
-    }
-  }
 </style>
