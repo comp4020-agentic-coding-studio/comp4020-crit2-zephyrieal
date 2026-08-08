@@ -51,20 +51,14 @@ import FaqTeaser from "../components/FaqTeaser.astro";
   }
 
   @media (min-width: 1024px) {
-    /* Matches the same content-max + gutter box every standalone page's
-       .section-inner uses (Screenshots, Downloads, FAQ, Blog, Community),
-       so splitting into two columns here doesn't leave the homepage's own
-       content starting at a different x than any other page's does. */
+    /* Full-bleed: the stage itself isn't capped to the site's content-max,
+       so the two columns use the whole viewport width like the original
+       desktop layout did. Named areas (not DOM order) place hero/content
+       in the left column stacked in two rows, with visual spanning both
+       rows in the right column — independent of the source order used for
+       the mobile layout above. */
     .stage {
-      max-width: var(--content-max);
-      margin: 0 auto;
-      padding-inline: var(--gutter);
-      grid-template-columns: 1fr 20rem;
-      column-gap: 2rem;
-      /* Named areas (not DOM order) place hero/content in the left column
-         stacked in two rows, with visual spanning both rows in the right
-         column — independent of the source order used for the mobile
-         layout above. */
+      grid-template-columns: 1fr 32rem;
       grid-template-areas:
         "hero    visual"
         "content visual";
@@ -94,7 +88,7 @@ import FaqTeaser from "../components/FaqTeaser.astro";
       height: 100vh;
       display: flex;
       align-items: center;
-      padding-block: 3rem;
+      padding: 3rem var(--gutter) 3rem 0;
       z-index: 5;
     }
   }

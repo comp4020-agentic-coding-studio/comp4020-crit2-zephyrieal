@@ -128,20 +128,4 @@ const releasesUrl = "https://github.com/melonDS-emu/melonDS/releases";
       grid-template-columns: 1fr;
     }
   }
-
-  /* Same reasoning as Features.astro: the homepage's two-column stage
-     already supplies the content-max/gutter box at >=1024px, so this
-     section's own copy is switched off there and the grid drops to 2
-     columns to fit the narrower column it actually has. */
-  @media (min-width: 1024px) {
-    .section-inner {
-      max-width: none;
-      margin: 0;
-      padding-inline: 0;
-    }
-
-    .downloads__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
 </style>
