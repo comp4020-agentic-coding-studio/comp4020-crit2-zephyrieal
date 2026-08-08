@@ -1,16 +1,130 @@
-body {
-  margin: 0;
-  padding: 2rem;
-  font-family: system-ui, sans-serif;
-  line-height: 1.6;
-  color: #1a1a1a;
+:root {
+  /* colour: hardware-literal, not a generic dark+neon pair — the cool tone
+     is the LCD backlight, the warm tone is the power LED */
+  --shell: #12151b;
+  --panel: #1d2129;
+  --panel-raised: #262b35;
+  --hairline: #333a46;
+  --text: #edf1f5;
+  --text-muted: #9aa3b2;
+  --glow: #7fe0ff;
+  --glow-dim: #7fe0ff33;
+  --led: #ffa857;
+
+  /* type */
+  --font-display: "Unbounded", system-ui, sans-serif;
+  --font-body: "Hanken Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* layout */
+  --radius: 1.25rem;
+  --radius-sm: 0.6rem;
+  --content-max: 72rem;
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
 }
 
-main {
-  max-width: 40rem;
-  margin: 0 auto;
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: var(--shell);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  line-height: 1.1;
+  margin: 0;
+}
+
+p {
+  margin: 0;
 }
 
 a {
-  color: #0b5fff;
+  color: var(--glow);
+  text-decoration-color: var(--glow-dim);
+}
+
+a:hover {
+  text-decoration-color: currentcolor;
+}
+
+:focus-visible {
+  outline: 2px solid var(--glow);
+  outline-offset: 3px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Every full-bleed section shares this width contract: the section itself
+   spans edge to edge (so its background can too), while its content sits in
+   a max-width rail with responsive side gutters. */
+.section {
+  padding: clamp(3rem, 8vw, 6rem) var(--gutter);
+}
+
+.section-inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+
+.eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--glow);
+  margin-bottom: 0.75rem;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: transform 0.15s ease;
+}
+
+.button-primary {
+  background: var(--led);
+  color: #1a1206;
+}
+
+.button-ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--hairline);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .button:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
 }
