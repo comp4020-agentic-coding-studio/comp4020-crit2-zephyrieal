@@ -2,8 +2,8 @@
 const base = import.meta.env.BASE_URL;
 
 const links = [
-  { href: "#features", label: "Features" },
-  { href: "#downloads", label: "Downloads" },
+  { href: `${base}#features`, label: "Features" },
+  { href: `${base}#downloads`, label: "Downloads" },
   { href: `${base}screenshots/`, label: "Screenshots" },
   { href: `${base}blog/`, label: "Blog" },
   { href: `${base}community/`, label: "Community" },
@@ -12,7 +12,15 @@ const links = [
 
 <header class="header">
   <div class="header__inner">
-    <a class="header__brand" href={import.meta.env.BASE_URL}>melonDS</a>
+    <a class="header__brand" href={import.meta.env.BASE_URL}>
+      <img
+        class="header__logo"
+        src={`${base}melon/melonbanner2.png`}
+        width="656"
+        height="150"
+        alt="melonDS — DS emulator, sorta"
+      />
+    </a>
     <nav aria-label="Primary">
       <ul>
         {
@@ -49,12 +57,14 @@ const links = [
   }
 
   .header__brand {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 1.15rem;
-    color: var(--text);
-    text-decoration: none;
-    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .header__logo {
+    height: 2.5rem;
+    width: auto;
   }
 
   nav ul {
