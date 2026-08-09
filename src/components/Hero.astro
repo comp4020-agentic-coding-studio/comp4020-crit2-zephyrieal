@@ -4,6 +4,35 @@ const base = import.meta.env.BASE_URL;
 
 <section class="hero">
   <div class="hero__panel hero__panel--top">
+    <div class="hero__art" aria-hidden="true">
+      <img
+        class="hero__art-photo"
+        src={`${base}backgrounds/ds-lite-open.jpg`}
+        width="1800"
+        height="1518"
+        alt=""
+        loading="eager"
+        decoding="async"
+      />
+      <!-- Original decorative silhouettes, not a reproduction of any
+           existing character design — generic "handheld-game cast" shapes
+           to echo the console photo without touching Nintendo's own IP. -->
+      <svg class="hero__art-runner" viewBox="0 0 100 140" fill="var(--glow)">
+        <circle cx="50" cy="20" r="16" />
+        <rect x="34" y="38" width="32" height="46" rx="14" />
+        <path d="M34 60 L14 78 L20 88 L42 72 Z" />
+        <path d="M66 60 L90 50 L86 40 L62 52 Z" />
+        <path d="M40 82 L26 130 L38 134 L48 92 Z" />
+        <path d="M58 82 L74 122 L62 128 L50 92 Z" />
+      </svg>
+      <svg class="hero__art-companion" viewBox="0 0 100 100" fill="var(--led)">
+        <ellipse cx="50" cy="60" rx="34" ry="30" />
+        <circle cx="30" cy="24" r="8" />
+        <circle cx="70" cy="24" r="8" />
+        <circle cx="38" cy="55" r="5" fill="var(--shell)" />
+        <circle cx="62" cy="55" r="5" fill="var(--shell)" />
+      </svg>
+    </div>
     <div class="section-inner hero__content">
       <img
         class="hero__logo"
@@ -33,7 +62,79 @@ const base = import.meta.env.BASE_URL;
   }
 
   .hero__panel--top {
+    position: relative;
     background: var(--shell);
+    overflow: hidden;
+  }
+
+  /* The console photo sits behind the copy and fades into the shell colour
+     on every edge (mask-image on the photo itself, gradients on the
+     ::after) so it reads as one continuous surface the text sits on top
+     of, rather than a photo pasted over a solid block. */
+  .hero__art {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .hero__art::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        to right,
+        var(--shell) 0%,
+        transparent 32%,
+        transparent 78%,
+        var(--shell) 100%
+      ),
+      linear-gradient(to bottom, transparent 55%, var(--shell) 100%);
+  }
+
+  .hero__art-photo {
+    position: absolute;
+    top: 50%;
+    right: clamp(-6rem, -2vw, 1rem);
+    transform: translateY(-50%);
+    width: clamp(24rem, 46vw, 40rem);
+    height: auto;
+    opacity: 0.9;
+    filter: grayscale(0.5) sepia(0.35) hue-rotate(58deg) saturate(1.6) brightness(0.5) contrast(1.05);
+    -webkit-mask-image: linear-gradient(to left, black 35%, transparent 85%);
+    mask-image: linear-gradient(to left, black 35%, transparent 85%);
+    display: none;
+  }
+
+  .hero__art-runner,
+  .hero__art-companion {
+    position: absolute;
+    display: none;
+  }
+
+  .hero__art-runner {
+    right: 9%;
+    bottom: 8%;
+    width: clamp(3.5rem, 6vw, 5.5rem);
+    height: auto;
+    opacity: 0.16;
+  }
+
+  .hero__art-companion {
+    right: 24%;
+    top: 14%;
+    width: clamp(2.5rem, 4vw, 4rem);
+    height: auto;
+    opacity: 0.13;
+  }
+
+  @media (min-width: 800px) {
+    .hero__art-photo,
+    .hero__art-runner,
+    .hero__art-companion {
+      display: block;
+    }
   }
 
   /* Padding lives on the same box as the max-width/centering (like
@@ -41,7 +142,15 @@ const base = import.meta.env.BASE_URL;
      lands at the same x as Features/Downloads instead of drifting by
      one gutter when the two responsibilities are split across elements. */
   .hero__content {
+    position: relative;
+    z-index: 1;
     padding-inline: var(--gutter);
+  }
+
+  @media (min-width: 900px) {
+    .hero__content > * {
+      max-width: 34rem;
+    }
   }
 
   .hero__logo {
