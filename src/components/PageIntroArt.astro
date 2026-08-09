@@ -1,0 +1,65 @@
+---
+// A quieter echo of the homepage hero's console art, for every other page's
+// intro band. Same cut-out photo, smaller and further muted — the hero
+// keeps the one bold treatment (see frontend-design's "spend your boldness
+// in one place"), this just keeps the rest of the site from going flat.
+// The parent section needs `position: relative; overflow: hidden;`, which
+// each page's own .intro rule sets alongside its background.
+const base = import.meta.env.BASE_URL;
+---
+
+<div class="page-art" aria-hidden="true">
+  <img
+    class="page-art-photo"
+    src={`${base}backgrounds/ds-lite-cutout.png`}
+    width="1400"
+    height="1168"
+    alt=""
+    loading="lazy"
+    decoding="async"
+  />
+</div>
+
+<style>
+  .page-art {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .page-art::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        to right,
+        var(--shell) 0%,
+        transparent 40%,
+        transparent 80%,
+        var(--shell) 100%
+      ),
+      linear-gradient(to bottom, transparent 55%, var(--shell) 100%);
+  }
+
+  .page-art-photo {
+    position: absolute;
+    top: 50%;
+    right: clamp(-3rem, -1vw, 1.5rem);
+    transform: translateY(-50%) rotate(-3deg);
+    width: clamp(13rem, 22vw, 19rem);
+    height: auto;
+    opacity: 0.55;
+    filter:
+      grayscale(0.5) sepia(0.35) hue-rotate(58deg) saturate(1.6)
+      brightness(0.6) contrast(1.05);
+    display: none;
+  }
+
+  @media (min-width: 800px) {
+    .page-art-photo {
+      display: block;
+    }
+  }
+</style>

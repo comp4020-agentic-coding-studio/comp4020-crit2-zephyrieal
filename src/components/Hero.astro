@@ -7,9 +7,9 @@ const base = import.meta.env.BASE_URL;
     <div class="hero__art" aria-hidden="true">
       <img
         class="hero__art-photo"
-        src={`${base}backgrounds/ds-lite-open.jpg`}
-        width="1800"
-        height="1518"
+        src={`${base}backgrounds/ds-lite-cutout.png`}
+        width="1400"
+        height="1168"
         alt=""
         loading="eager"
         decoding="async"
@@ -67,10 +67,10 @@ const base = import.meta.env.BASE_URL;
     overflow: hidden;
   }
 
-  /* The console photo sits behind the copy and fades into the shell colour
-     on every edge (mask-image on the photo itself, gradients on the
-     ::after) so it reads as one continuous surface the text sits on top
-     of, rather than a photo pasted over a solid block. */
+  /* The console (background already cut out, see the PNG's own alpha
+     channel) sits behind the copy, and the ::after gradient fades the
+     whole art layer into the shell colour at the container's own edges so
+     nothing feels pasted on top of a solid block. */
   .hero__art {
     position: absolute;
     inset: 0;
@@ -93,17 +93,22 @@ const base = import.meta.env.BASE_URL;
       linear-gradient(to bottom, transparent 55%, var(--shell) 100%);
   }
 
+  /* Background already removed from the source photo (chroma-keyed out, not
+     just faded), so the console floats free rather than sitting in a
+     rectangle — a drop-shadow gives it depth instead of the mask this used
+     to need to hide a photo backdrop. */
   .hero__art-photo {
     position: absolute;
     top: 50%;
-    right: clamp(-6rem, -2vw, 1rem);
+    right: clamp(-4rem, -1vw, 2rem);
     transform: translateY(-50%);
-    width: clamp(24rem, 46vw, 40rem);
+    width: clamp(22rem, 40vw, 34rem);
     height: auto;
-    opacity: 0.9;
-    filter: grayscale(0.5) sepia(0.35) hue-rotate(58deg) saturate(1.6) brightness(0.5) contrast(1.05);
-    -webkit-mask-image: linear-gradient(to left, black 35%, transparent 85%);
-    mask-image: linear-gradient(to left, black 35%, transparent 85%);
+    opacity: 0.95;
+    filter:
+      grayscale(0.5) sepia(0.35) hue-rotate(58deg) saturate(1.6)
+      brightness(0.65) contrast(1.05)
+      drop-shadow(0 25px 45px rgb(0 0 0 / 45%));
     display: none;
   }
 

@@ -4,6 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import HingeDivider from "../../components/HingeDivider.astro";
+import PageIntroArt from "../../components/PageIntroArt.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -22,6 +23,7 @@ const { Content } = await render(post);
   <main>
     <article>
       <section class="intro">
+        <PageIntroArt />
         <div class="section section-inner">
           <span class="eyebrow" data-reveal>{post.data.author}</span>
           <h1 data-reveal style="--reveal-delay: 0.1s">{post.data.title}</h1>
@@ -81,7 +83,12 @@ const { Content } = await render(post);
 
 <style>
   .intro {
-    background: var(--shell);
+    position: relative;
+    overflow: hidden;
+    background-color: var(--shell);
+    background-image: var(--bg-motif);
+    background-repeat: repeat;
+    background-size: 96px 96px;
   }
 
   h1 {
@@ -98,7 +105,10 @@ const { Content } = await render(post);
   }
 
   .body {
-    background: var(--panel);
+    background-color: var(--panel);
+    background-image: var(--bg-motif);
+    background-repeat: repeat;
+    background-size: 96px 96px;
   }
 
   .prose {

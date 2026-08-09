@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import HingeDivider from "../../components/HingeDivider.astro";
+import PageIntroArt from "../../components/PageIntroArt.astro";
 
 const base = import.meta.env.BASE_URL;
 
@@ -25,6 +26,7 @@ const panels = [
   <SiteHeader />
   <main>
     <section class="intro">
+      <PageIntroArt />
       <div class="section section-inner">
         <span class="eyebrow" data-reveal>Screenshots</span>
         <h1 data-reveal style="--reveal-delay: 0.1s">What it looks like in practice.</h1>
@@ -58,7 +60,12 @@ const panels = [
 
 <style>
   .intro {
-    background: var(--shell);
+    position: relative;
+    overflow: hidden;
+    background-color: var(--shell);
+    background-image: var(--bg-motif);
+    background-repeat: repeat;
+    background-size: 96px 96px;
   }
 
   h1 {
@@ -74,7 +81,10 @@ const panels = [
   }
 
   .gallery {
-    background: var(--panel);
+    background-color: var(--panel);
+    background-image: var(--bg-motif);
+    background-repeat: repeat;
+    background-size: 96px 96px;
   }
 
   .gallery__grid {

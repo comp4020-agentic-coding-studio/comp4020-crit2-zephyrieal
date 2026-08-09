@@ -58,13 +58,12 @@ const features = [
 </section>
 
 <style>
-  /* A faint, repeating dual-screen + d-pad glyph, the same shape language as
-     the hero's console photo, so the background motif carries on past the
-     hero instead of stopping dead at the first divider. Inline SVG rather
-     than a file so it stays independent of the site's base path. */
+  /* Same shape language as the hero's console photo, so the background
+     motif carries on past the hero instead of stopping dead at the first
+     divider. See --bg-motif in global.css. */
   .features {
     background-color: var(--panel);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Crect x='14' y='10' width='30' height='22' rx='4' fill='none' stroke='%232c5238' stroke-opacity='0.35' stroke-width='2'/%3E%3Crect x='14' y='36' width='30' height='22' rx='4' fill='none' stroke='%232c5238' stroke-opacity='0.35' stroke-width='2'/%3E%3Cpath d='M66 50 h10 M71 45 v10' stroke='%232c5238' stroke-opacity='0.35' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-image: var(--bg-motif);
     background-repeat: repeat;
     background-size: 96px 96px;
   }

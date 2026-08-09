@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import HingeDivider from "../../components/HingeDivider.astro";
+import PageIntroArt from "../../components/PageIntroArt.astro";
 
 // A static snapshot of melonds.kuribo64.net/board/'s board index, rebuilt in
 // this redesign's own markup and styling rather than copying the original
@@ -95,6 +96,7 @@ const stats = { threads: 2135, posts: 8581, users: 15951 };
   <SiteHeader />
   <main>
     <section class="intro">
+      <PageIntroArt />
       <div class="section section-inner">
         <span class="eyebrow" data-reveal>Forum</span>
         <h1 data-reveal style="--reveal-delay: 0.1s">A snapshot of the board, frozen in place.</h1>
@@ -155,7 +157,12 @@ const stats = { threads: 2135, posts: 8581, users: 15951 };
 
 <style>
   .intro {
-    background: var(--shell);
+    position: relative;
+    overflow: hidden;
+    background-color: var(--shell);
+    background-image: var(--bg-motif);
+    background-repeat: repeat;
+    background-size: 96px 96px;
   }
 
   h1 {
@@ -176,7 +183,10 @@ const stats = { threads: 2135, posts: 8581, users: 15951 };
   }
 
   .board {
-    background: var(--panel);
+    background-color: var(--panel);
+    background-image: var(--bg-motif);
+    background-repeat: repeat;
+    background-size: 96px 96px;
   }
 
   .board__stats {

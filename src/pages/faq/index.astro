@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import HingeDivider from "../../components/HingeDivider.astro";
+import PageIntroArt from "../../components/PageIntroArt.astro";
 
 // Rewritten, not copied, from the real project's Howto/FAQ page
 // (melonds.kuribo64.net/faq.php) — same honesty rule as the rest of this
@@ -71,6 +72,7 @@ const groups = [
   <SiteHeader />
   <main>
     <section class="intro">
+      <PageIntroArt />
       <div class="section section-inner">
         <span class="eyebrow" data-reveal>FAQ</span>
         <h1 data-reveal style="--reveal-delay: 0.1s">The questions that come up before the fun does.</h1>
@@ -86,7 +88,7 @@ const groups = [
     {
       groups.map((group, i) => (
         <>
-          <section class="faq-group" style={`background: ${i % 2 === 0 ? "var(--panel)" : "var(--shell)"}`}>
+          <section class:list={["faq-group", i % 2 === 0 ? "faq-group--panel" : "faq-group--shell"]}>
             <div class="section section-inner">
               <h2 data-reveal>{group.title}</h2>
               <div class="faq-list">
@@ -109,7 +111,12 @@ const groups = [
 
 <style>
   .intro {
-    background: var(--shell);
+    position: relative;
+    overflow: hidden;
+    background-color: var(--shell);
+    background-image: var(--bg-motif);
+    background-repeat: repeat;
+    background-size: 96px 96px;
   }
 
   h1 {
@@ -122,6 +129,20 @@ const groups = [
     margin-top: 1rem;
     color: var(--text-muted);
     max-width: 34rem;
+  }
+
+  .faq-group--panel {
+    background-color: var(--panel);
+    background-image: var(--bg-motif);
+    background-repeat: repeat;
+    background-size: 96px 96px;
+  }
+
+  .faq-group--shell {
+    background-color: var(--shell);
+    background-image: var(--bg-motif);
+    background-repeat: repeat;
+    background-size: 96px 96px;
   }
 
   h2 {

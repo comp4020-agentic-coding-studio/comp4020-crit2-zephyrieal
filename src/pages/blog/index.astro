@@ -4,6 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import HingeDivider from "../../components/HingeDivider.astro";
+import PageIntroArt from "../../components/PageIntroArt.astro";
 
 const base = import.meta.env.BASE_URL;
 const posts = (await getCollection("blog")).sort(
@@ -15,6 +16,7 @@ const posts = (await getCollection("blog")).sort(
   <SiteHeader />
   <main>
     <section class="intro">
+      <PageIntroArt />
       <div class="section section-inner">
         <span class="eyebrow" data-reveal>Blog</span>
         <h1 data-reveal style="--reveal-delay: 0.1s">Development updates.</h1>
@@ -53,7 +55,12 @@ const posts = (await getCollection("blog")).sort(
 
 <style>
   .intro {
-    background: var(--shell);
+    position: relative;
+    overflow: hidden;
+    background-color: var(--shell);
+    background-image: var(--bg-motif);
+    background-repeat: repeat;
+    background-size: 96px 96px;
   }
 
   h1 {
@@ -68,7 +75,10 @@ const posts = (await getCollection("blog")).sort(
   }
 
   .posts {
-    background: var(--panel);
+    background-color: var(--panel);
+    background-image: var(--bg-motif);
+    background-repeat: repeat;
+    background-size: 96px 96px;
   }
 
   .posts__list {

@@ -12,6 +12,13 @@
   --glow-dim: #4ce06a33;
   --led: #ffa857;
 
+  /* A faint, repeating dual-screen + d-pad glyph — the site's one background
+     texture, reused everywhere a panel needs to feel like part of the same
+     device instead of a flat colour swatch. Apply as background-image
+     alongside background-color (never the background shorthand, which would
+     reset it back to none). */
+  --bg-motif: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Crect x='14' y='10' width='30' height='22' rx='4' fill='none' stroke='%232c5238' stroke-opacity='0.35' stroke-width='2'/%3E%3Crect x='14' y='36' width='30' height='22' rx='4' fill='none' stroke='%232c5238' stroke-opacity='0.35' stroke-width='2'/%3E%3Cpath d='M66 50 h10 M71 45 v10' stroke='%232c5238' stroke-opacity='0.35' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+
   /* type */
   --font-display: "Unbounded", system-ui, sans-serif;
   --font-body: "Hanken Grotesk", system-ui, sans-serif;
@@ -89,6 +96,8 @@ img {
 }
 
 .section-inner {
+  position: relative;
+  z-index: 1;
   max-width: var(--content-max);
   margin: 0 auto;
 }
