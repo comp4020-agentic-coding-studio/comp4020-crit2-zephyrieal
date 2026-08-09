@@ -1,16 +1,25 @@
 ---
+const base = import.meta.env.BASE_URL;
 ---
 
 <section class="hero">
   <div class="hero__panel hero__panel--top">
     <div class="section-inner hero__content">
-      <h1 data-reveal>Fast, accurate Nintendo DS emulation.</h1>
-      <p class="hero__lede" data-reveal style="--reveal-delay: 0.1s">
+      <img
+        class="hero__logo"
+        src={`${base}melon/melonbanner2.png`}
+        width="656"
+        height="150"
+        alt="melonDS — DS emulator, sorta"
+        data-reveal
+      />
+      <h1 data-reveal style="--reveal-delay: 0.1s">Fast, accurate Nintendo DS emulation.</h1>
+      <p class="hero__lede" data-reveal style="--reveal-delay: 0.2s">
         melonDS aims to emulate the Nintendo DS — and DSi — accurately, without
         giving up speed. It's still evolving, but the core is nearly complete,
         with a solid set of features already in place.
       </p>
-      <div class="hero__actions" data-reveal style="--reveal-delay: 0.2s">
+      <div class="hero__actions" data-reveal style="--reveal-delay: 0.3s">
         <a class="button button-primary" href="#downloads">Download melonDS</a>
         <a class="button button-ghost" href="#features">See what's emulated</a>
       </div>
@@ -33,6 +42,12 @@
      one gutter when the two responsibilities are split across elements. */
   .hero__content {
     padding-inline: var(--gutter);
+  }
+
+  .hero__logo {
+    width: clamp(16rem, 42vw, 34rem);
+    height: auto;
+    margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
   }
 
   h1 {
